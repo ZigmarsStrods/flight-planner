@@ -1,11 +1,13 @@
 package io.codelex.flightplanner.common;
 
 import io.codelex.flightplanner.domain.*;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 
 import java.util.Set;
 
 @Repository
+@ConditionalOnProperty(prefix = "flight-planner", name = "store-type", havingValue = "in-memory")
 public class CommonInMemoryRepository implements CommonRepository {
 
     private final MemoryDB memoryDB;
