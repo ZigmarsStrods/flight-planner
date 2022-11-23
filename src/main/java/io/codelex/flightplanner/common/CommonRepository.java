@@ -1,6 +1,9 @@
 package io.codelex.flightplanner.common;
 
 import io.codelex.flightplanner.domain.*;
+import io.codelex.flightplanner.dto.AddFlightRequest;
+import io.codelex.flightplanner.dto.PageResult;
+import io.codelex.flightplanner.dto.SearchFlightsRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.Set;

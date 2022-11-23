@@ -81,11 +81,13 @@ public class Flight {
         this.arrivalTime = arrivalTime;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Flight flight)) return false;
-        return from.equals(flight.from) && to.equals(flight.to) && carrier.equals(flight.carrier) && departureTime.equals(flight.departureTime) && arrivalTime.equals(flight.arrivalTime);
+    public boolean areFlightsEqual(Flight flightToCompare) {
+        if (this == flightToCompare) return true;
+        return from.equals(flightToCompare.from) &&
+                to.equals(flightToCompare.to) &&
+                carrier.equals(flightToCompare.carrier) &&
+                departureTime.equals(flightToCompare.departureTime) &&
+                arrivalTime.equals(flightToCompare.arrivalTime);
     }
 
     @Override
