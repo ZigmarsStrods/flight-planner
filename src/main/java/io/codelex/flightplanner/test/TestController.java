@@ -1,24 +1,20 @@
 package io.codelex.flightplanner.test;
 
-import io.codelex.flightplanner.common.CommonService;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import io.codelex.flightplanner.config.AbstractService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin()
+@AllArgsConstructor
 @RequestMapping("/testing-api")
 public class TestController {
 
-    private final CommonService commonService;
-
-    public TestController(CommonService commonService) {
-        this.commonService = commonService;
-    }
+    private final AbstractService abstractService;
 
     @PostMapping("/clear")
     void clear() {
-        commonService.clear();
+        abstractService.clear();
     }
 }

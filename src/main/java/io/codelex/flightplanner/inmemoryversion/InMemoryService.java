@@ -1,46 +1,35 @@
-package io.codelex.flightplanner.common;
+package io.codelex.flightplanner.inmemoryversion;
 
+import io.codelex.flightplanner.config.AbstractService;
 import io.codelex.flightplanner.domain.*;
 import io.codelex.flightplanner.dto.AddFlightRequest;
 import io.codelex.flightplanner.dto.PageResult;
 import io.codelex.flightplanner.dto.SearchFlightsRequest;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Stream;
 
-@Repository
-@ConditionalOnProperty(prefix = "flight-planner", name = "store-type", havingValue = "in-memory")
-public class CommonInMemoryRepository implements CommonRepository {
-
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+//@Service
+public class InMemoryService extends AbstractService {
 
     private final List<Flight> flightList = new ArrayList<>();
 
     private int flightId = 0;
 
-    public CommonInMemoryRepository() {
-    }
-
     public Flight addFlight(AddFlightRequest flightRequest) {
+        Flight flightToAdd = getFlightCarrierAndTimesFromRequest(flightRequest);
         Airport flightFrom = flightRequest.getFrom();
         Airport flightTo = flightRequest.getTo();
-        String flightCarrier = flightRequest.getCarrier();
-        LocalDateTime flightDepartureTime = LocalDateTime.parse(flightRequest.getDepartureTime(), formatter);
-        LocalDateTime flightArrivalTime = LocalDateTime.parse(flightRequest.getArrivalTime(), formatter);
-        if (flightDepartureTime.compareTo(flightArrivalTime) >= 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Entered times not possible for a correct flight");
-        }
-        Flight flightToAdd = new Flight(flightId, flightFrom, flightTo, flightCarrier, flightDepartureTime, flightArrivalTime);
+        flightToAdd.setFrom(flightFrom);
+        flightToAdd.setTo(flightTo);
         if (flightList.stream().anyMatch(flight -> flight.areFlightsEqual(flightToAdd))) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Can not add 2 identical flights!");
         }
+        flightToAdd.setId(flightId);
         flightList.add(flightToAdd);
         flightId++;
         return flightToAdd;
@@ -54,7 +43,7 @@ public class CommonInMemoryRepository implements CommonRepository {
     }
 
     public PageResult<Flight> searchFlights(SearchFlightsRequest request) {
-        LocalDate formattedRequestDepartureDate = LocalDate.parse(request.getDepartureDate());
+        LocalDate formattedRequestDepartureDate = getFormattedRequestDepartureDate(request);
         List<Flight> flightsFound = flightList.stream()
                 .filter(flight -> flight.getFrom().getAirport().equals(request.getFrom()) &&
                         flight.getTo().getAirport().equals(request.getTo()) &&
@@ -64,9 +53,7 @@ public class CommonInMemoryRepository implements CommonRepository {
     }
 
     public Set<Airport> searchAirports(String search) {
-        Set<Airport> matchedAirportSet = new HashSet<>();
-        String normalizedSearch = search.trim()
-                .toLowerCase();
+        String normalizedSearch = getNormalizedSearch(search);
         Optional<Airport> matchedAirport = flightList.stream()
                 .flatMap(flight -> Stream.of(flight.getFrom(), flight.getTo()))
                 .distinct()
@@ -85,5 +72,4 @@ public class CommonInMemoryRepository implements CommonRepository {
     public void clear() {
         flightList.clear();
     }
-
 }

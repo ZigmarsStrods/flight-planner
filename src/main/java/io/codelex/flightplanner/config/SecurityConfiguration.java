@@ -19,6 +19,7 @@ public class SecurityConfiguration {
                 .authenticated()
                 .and()
                 .httpBasic();
+        http.headers().frameOptions().disable();
         return http.build();
     }
 }
