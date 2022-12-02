@@ -49,7 +49,8 @@ public class DatabaseService extends AbstractService {
     @Override
     public PageResult<Flight> searchFlights(SearchFlightsRequest request) {
         LocalDate formattedRequestDepartureDate = getFormattedRequestDepartureDate(request);
-        List<Flight> flightsFound = flightRepository.searchFlights(request.getFrom(), request.getTo());
+        LocalDate departureDatePlusOneDay = formattedRequestDepartureDate.plusDays(1);
+        List<Flight> flightsFound = flightRepository.searchFlights(request.getFrom(), request.getTo(), formattedRequestDepartureDate, departureDatePlusOneDay);
         return new PageResult<>(0, flightsFound.size(), flightsFound);
     }
 
