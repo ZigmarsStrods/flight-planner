@@ -11,6 +11,6 @@ import java.util.List;
 public interface FlightRepository extends JpaRepository<Flight, Integer> {
     boolean existsByFromAndToAndCarrierAndDepartureTimeAndArrivalTime(Airport from, Airport to, String carrier, LocalDateTime departureTime, LocalDateTime arrivalTime);
 
-    @Query("Select f from Flight f where f.from = ?1 AND f.to = ?2")
+    @Query("Select f from Flight f where f.from.airport = ?1 AND f.to.airport = ?2")
     List<Flight> searchFlights(String from, String to);
 }
