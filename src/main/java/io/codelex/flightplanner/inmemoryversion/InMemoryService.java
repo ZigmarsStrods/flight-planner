@@ -5,6 +5,7 @@ import io.codelex.flightplanner.domain.*;
 import io.codelex.flightplanner.dto.AddFlightRequest;
 import io.codelex.flightplanner.dto.PageResult;
 import io.codelex.flightplanner.dto.SearchFlightsRequest;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,7 +14,8 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Stream;
 
-//@Service
+@Service
+@ConditionalOnProperty(prefix = "flight-planner", name = "store-type", havingValue = "in-memory")
 public class InMemoryService extends AbstractService {
 
     private final List<Flight> flightList = new ArrayList<>();

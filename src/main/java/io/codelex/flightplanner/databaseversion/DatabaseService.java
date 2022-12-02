@@ -7,16 +7,17 @@ import io.codelex.flightplanner.dto.AddFlightRequest;
 import io.codelex.flightplanner.dto.PageResult;
 import io.codelex.flightplanner.dto.SearchFlightsRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 @Service
+@ConditionalOnProperty(prefix = "flight-planner", name = "store-type", havingValue = "database")
 @AllArgsConstructor
 public class DatabaseService extends AbstractService {
 
