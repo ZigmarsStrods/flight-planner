@@ -51,4 +51,9 @@ public abstract class FlightPlannerService {
         return search.trim()
                 .toLowerCase();
     }
+
+    protected void setAirports(Flight flightToAdd, Airport from, Airport to) {
+        flightToAdd.setFrom(from);
+        flightToAdd.setTo(to);
+    }
 }

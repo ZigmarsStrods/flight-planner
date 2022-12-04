@@ -25,8 +25,7 @@ public class InMemoryService extends FlightPlannerService {
         Flight flightToAdd = getFlightCarrierAndTimesFromRequest(flightRequest);
         Airport flightFrom = flightRequest.getFrom();
         Airport flightTo = flightRequest.getTo();
-        flightToAdd.setFrom(flightFrom);
-        flightToAdd.setTo(flightTo);
+        setAirports(flightToAdd, flightFrom, flightTo);
         if (flightList.stream().anyMatch(flight -> flight.areFlightsEqual(flightToAdd))) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Can not add 2 identical flights!");
         }

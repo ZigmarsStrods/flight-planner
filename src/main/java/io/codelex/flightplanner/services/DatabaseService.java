@@ -29,9 +29,8 @@ public class DatabaseService extends FlightPlannerService {
     public Flight addFlight(AddFlightRequest flightRequest) {
         Flight flightToAdd = getFlightCarrierAndTimesFromRequest(flightRequest);
         Airport fromAirport = findOrSaveAirport(flightRequest.getFrom());
-        flightToAdd.setFrom(fromAirport);
         Airport toAirport = findOrSaveAirport(flightRequest.getTo());
-        flightToAdd.setTo(toAirport);
+        setAirports(flightToAdd, fromAirport, toAirport);
         if (flightRepository.existsByFromAndToAndCarrierAndDepartureTimeAndArrivalTime(flightToAdd.getFrom(),
                 flightToAdd.getTo(), flightToAdd.getCarrier(), flightToAdd.getDepartureTime(),
                 flightToAdd.getArrivalTime())) {
