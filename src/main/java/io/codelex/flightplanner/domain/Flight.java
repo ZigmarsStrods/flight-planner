@@ -17,10 +17,8 @@ public class Flight {
     @GeneratedValue
     private int id;
     @ManyToOne
-    @JoinColumn(name = "from_airport")
     private Airport from;
     @ManyToOne
-    @JoinColumn(name = "to_airport")
     private Airport to;
     @NotNull
     private String carrier;
