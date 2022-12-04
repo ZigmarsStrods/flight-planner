@@ -43,10 +43,11 @@ public class FlightPlannerApplicationTest {
 
         Flight savedFlight = adminController.addFlight(testFlightRequest);
 
-        Assertions.assertEquals(savedFlight.getFrom(), from);
-        Assertions.assertEquals(savedFlight.getTo(), to);
-        Assertions.assertEquals(savedFlight.getCarrier(), carrier);
-        Assertions.assertEquals(savedFlight.getDepartureTime(), formattedDepartureTime);
-        Assertions.assertEquals(savedFlight.getArrivalTime(), formattedArrivalTime);
+        Assertions.assertNotEquals(0, savedFlight.getId());
+        Assertions.assertEquals(from, savedFlight.getFrom());
+        Assertions.assertEquals(to, savedFlight.getTo());
+        Assertions.assertEquals(carrier, savedFlight.getCarrier());
+        Assertions.assertEquals(formattedDepartureTime, savedFlight.getDepartureTime());
+        Assertions.assertEquals(formattedArrivalTime, savedFlight.getArrivalTime());
     }
 }

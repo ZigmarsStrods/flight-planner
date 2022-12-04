@@ -15,10 +15,13 @@ public class Flight {
 
     @Id
     @GeneratedValue
+    @NotNull
     private int id;
     @ManyToOne
+    @NotNull
     private Airport from;
     @ManyToOne
+    @NotNull
     private Airport to;
     @NotNull
     private String carrier;
