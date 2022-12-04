@@ -13,7 +13,7 @@ CREATE SEQUENCE hibernate_sequence START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE flight
 (
-    id             INT          NOT NULL DEFAULT NEXTVAL('hibernate_sequence'),
+    id             INT          NOT NULL PRIMARY KEY UNIQUE,
     from_airport   VARCHAR(255) NOT NULL,
     to_airport     VARCHAR(255) NOT NULL,
     carrier        VARCHAR(255) NOT NULL,
