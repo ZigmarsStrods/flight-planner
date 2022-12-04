@@ -1,6 +1,7 @@
-package io.codelex.flightplanner.databaseversion;
+package io.codelex.flightplanner.services;
 
-import io.codelex.flightplanner.config.AbstractService;
+import io.codelex.flightplanner.jparepositories.AirportRepository;
+import io.codelex.flightplanner.jparepositories.FlightRepository;
 import io.codelex.flightplanner.domain.Airport;
 import io.codelex.flightplanner.domain.Flight;
 import io.codelex.flightplanner.dto.AddFlightRequest;

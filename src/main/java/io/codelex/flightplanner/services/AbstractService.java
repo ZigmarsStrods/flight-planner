@@ -1,4 +1,4 @@
-package io.codelex.flightplanner.config;
+package io.codelex.flightplanner.services;
 
 import io.codelex.flightplanner.domain.Airport;
 import io.codelex.flightplanner.domain.Flight;

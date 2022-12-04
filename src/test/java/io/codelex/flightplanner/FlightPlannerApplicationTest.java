@@ -1,10 +1,10 @@
 package io.codelex.flightplanner;
 
-import io.codelex.flightplanner.admin.AdminController;
+import io.codelex.flightplanner.controllers.AdminController;
 import io.codelex.flightplanner.domain.Airport;
 import io.codelex.flightplanner.domain.Flight;
 import io.codelex.flightplanner.dto.AddFlightRequest;
-import io.codelex.flightplanner.test.TestController;
+import io.codelex.flightplanner.controllers.TestController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
