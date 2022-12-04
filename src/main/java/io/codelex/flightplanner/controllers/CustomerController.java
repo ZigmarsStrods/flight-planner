@@ -1,6 +1,6 @@
 package io.codelex.flightplanner.controllers;
 
-import io.codelex.flightplanner.services.AbstractService;
+import io.codelex.flightplanner.services.FlightPlannerService;
 import io.codelex.flightplanner.domain.Airport;
 import io.codelex.flightplanner.domain.Flight;
 import io.codelex.flightplanner.dto.PageResult;
@@ -18,23 +18,23 @@ import java.util.Set;
 @RequestMapping("/api")
 public class CustomerController {
 
-    private final AbstractService abstractService;
+    private final FlightPlannerService flightPlannerService;
 
     @PostMapping("/flights/search")
     public PageResult<Flight> searchFlights(@Valid @RequestBody SearchFlightsRequest request) {
         if (request.getTo().equals(request.getFrom())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        return abstractService.searchFlights(request);
+        return flightPlannerService.searchFlights(request);
     }
 
     @GetMapping("/flights/{id}")
     public Flight findFlightById(@PathVariable int id) {
-        return abstractService.fetchFlight(id);
+        return flightPlannerService.fetchFlight(id);
     }
 
     @GetMapping("/airports")
     public Set<Airport> searchAirports(String search) {
-        return abstractService.searchAirports(search);
+        return flightPlannerService.searchAirports(search);
     }
 }

@@ -1,6 +1,5 @@
 package io.codelex.flightplanner.services;
 
-import io.codelex.flightplanner.services.AbstractService;
 import io.codelex.flightplanner.domain.*;
 import io.codelex.flightplanner.dto.AddFlightRequest;
 import io.codelex.flightplanner.dto.PageResult;
@@ -16,7 +15,7 @@ import java.util.stream.Stream;
 
 @Service
 @ConditionalOnProperty(prefix = "flight-planner", name = "store-type", havingValue = "in-memory")
-public class InMemoryService extends AbstractService {
+public class InMemoryService extends FlightPlannerService {
 
     private final List<Flight> flightList = new ArrayList<>();
 

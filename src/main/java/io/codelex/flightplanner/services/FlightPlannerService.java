@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public abstract class AbstractService {
+public abstract class FlightPlannerService {
 
     protected final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     protected final Set<Airport> matchedAirportSet = new HashSet<>();

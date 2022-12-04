@@ -20,7 +20,7 @@ import java.util.Set;
 @Service
 @ConditionalOnProperty(prefix = "flight-planner", name = "store-type", havingValue = "database")
 @AllArgsConstructor
-public class DatabaseService extends AbstractService {
+public class DatabaseService extends FlightPlannerService {
 
     private final FlightRepository flightRepository;
     private final AirportRepository airportRepository;
