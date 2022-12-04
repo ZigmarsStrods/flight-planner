@@ -21,7 +21,7 @@ dependencies {
     implementation 'org.postgresql:postgresql:42.5.1'
     implementation 'com.h2database:h2:2.1.214'
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
-//    implementation 'org.liquibase:liquibase-core'
+    implementation 'org.liquibase:liquibase-core'
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
     testCompileOnly 'org.projectlombok:lombok:1.18.24'

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -13,19 +14,21 @@ import java.util.Objects;
 public class Flight {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private int id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "from_airport")
     private Airport from;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "to_airport")
     private Airport to;
+    @NotNull
     private String carrier;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    @Column
+    @NotNull
     private LocalDateTime departureTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @NotNull
     private LocalDateTime arrivalTime;
 
     public Flight(String carrier, LocalDateTime departureTime, LocalDateTime arrivalTime) {

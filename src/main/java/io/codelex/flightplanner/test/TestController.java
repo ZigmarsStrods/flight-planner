@@ -14,7 +14,7 @@ public class TestController {
     private final AbstractService abstractService;
 
     @PostMapping("/clear")
-    void clear() {
+    public void clear() {
         abstractService.clear();
     }
 }

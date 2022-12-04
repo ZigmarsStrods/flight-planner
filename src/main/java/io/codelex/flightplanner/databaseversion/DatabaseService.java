@@ -69,7 +69,8 @@ public class DatabaseService extends AbstractService {
 
     @Override
     public void clear() {
-        flightRepository.deleteAll();
+        flightRepository.deleteAllInBatch();
+        airportRepository.deleteAllInBatch();
     }
 
     private Airport findOrSaveAirport(Airport airportSearch) {
