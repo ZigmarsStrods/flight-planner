@@ -6,7 +6,6 @@ import org.apache.commons.text.WordUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
@@ -14,14 +13,11 @@ import java.util.Objects;
 @AllArgsConstructor
 public class Airport {
     @NotBlank
-    @NotNull
     private String country;
     @NotBlank
-    @NotNull
     private String city;
     @Id
     @NotBlank
-    @NotNull
     private String airport;
 
     public String getCountry() {
