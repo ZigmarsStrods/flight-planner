@@ -1,33 +1,24 @@
 package io.codelex.flightplanner.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.apache.commons.text.WordUtils;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Airport {
     @NotBlank
-    @NotNull
     private String country;
-
     @NotBlank
-    @NotNull
     private String city;
-
+    @Id
     @NotBlank
-    @NotNull
     private String airport;
-
-
-    public Airport() {
-    }
-
-    public Airport(String country, String city, String airport) {
-        this.country = country;
-        this.city = city;
-        this.airport = airport;
-    }
 
     public String getCountry() {
         return country;
@@ -56,7 +47,8 @@ public class Airport {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Airport airport1)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+        Airport airport1 = (Airport) o;
         return country.equals(airport1.country) && city.equals(airport1.city) && airport.equals(airport1.airport);
     }
 
