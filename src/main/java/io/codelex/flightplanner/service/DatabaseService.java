@@ -1,7 +1,7 @@
-package io.codelex.flightplanner.services;
+package io.codelex.flightplanner.service;
 
-import io.codelex.flightplanner.jparepositories.AirportRepository;
-import io.codelex.flightplanner.jparepositories.FlightRepository;
+import io.codelex.flightplanner.jparepository.AirportRepository;
+import io.codelex.flightplanner.jparepository.FlightRepository;
 import io.codelex.flightplanner.domain.Airport;
 import io.codelex.flightplanner.domain.Flight;
 import io.codelex.flightplanner.dto.AddFlightRequest;
@@ -26,28 +26,29 @@ public class DatabaseService extends FlightPlannerService {
     private final AirportRepository airportRepository;
 
     @Override
-    public Flight addFlight(AddFlightRequest flightRequest) {
+    public Flight addFlight(final AddFlightRequest flightRequest) {
         Flight flightToAdd = getFlightCarrierAndTimesFromRequest(flightRequest);
         Airport fromAirport = findOrSaveAirport(flightRequest.getFrom());
         Airport toAirport = findOrSaveAirport(flightRequest.getTo());
         setAirports(flightToAdd, fromAirport, toAirport);
         if (flightRepository.existsByFromAndToAndCarrierAndDepartureTimeAndArrivalTime(flightToAdd.getFrom(),
-                flightToAdd.getTo(), flightToAdd.getCarrier(), flightToAdd.getDepartureTime(),
-                flightToAdd.getArrivalTime())) {
+                flightToAdd.getTo(), flightToAdd.getCarrier(),
+                flightToAdd.getDepartureTime(), flightToAdd.getArrivalTime())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Can not add 2 identical flights!");
         }
         return flightRepository.save(flightToAdd);
     }
 
     @Override
-    public Flight fetchFlight(int id) {
+    public Flight fetchFlight(final int id) {
         return flightRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
                         "Requested flight not found in the DB!!!"));
     }
 
     @Override
-    public PageResult<Flight> searchFlights(SearchFlightsRequest request) {
+    public PageResult<Flight> searchFlights(final SearchFlightsRequest request) {
         LocalDate formattedRequestDepartureDate = getFormattedRequestDepartureDate(request);
         LocalDate departureDatePlusOneDay = formattedRequestDepartureDate.plusDays(1);
         List<Flight> flightsFound = flightRepository.searchFlights(request.getFrom(), request.getTo(), formattedRequestDepartureDate, departureDatePlusOneDay);
@@ -55,13 +56,13 @@ public class DatabaseService extends FlightPlannerService {
     }
 
     @Override
-    public Set<Airport> searchAirports(String search) {
+    public Set<Airport> searchAirports(final String search) {
         String normalizedSearch = getNormalizedSearch(search);
         return airportRepository.searchAirport(normalizedSearch);
     }
 
     @Override
-    public void deleteFlight(int id) {
+    public void deleteFlight(final int id) {
         if (flightRepository.existsById(id)) {
             flightRepository.deleteById(id);
         }
@@ -73,7 +74,7 @@ public class DatabaseService extends FlightPlannerService {
         airportRepository.deleteAllInBatch();
     }
 
-    private Airport findOrSaveAirport(Airport airportSearch) {
+    private Airport findOrSaveAirport(final Airport airportSearch) {
         return airportRepository.findById(airportSearch.getAirport())
                 .orElse(airportRepository.save(airportSearch));
     }

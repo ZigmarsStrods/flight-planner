@@ -36,21 +36,32 @@ public class Flight {
         this.arrivalTime = arrivalTime;
     }
 
-    public boolean areFlightsEqual(Flight flightToCompare) {
-        if (this == flightToCompare) return true;
-        return from.equals(flightToCompare.from) &&
-                to.equals(flightToCompare.to) &&
-                carrier.equals(flightToCompare.carrier) &&
-                departureTime.equals(flightToCompare.departureTime) &&
-                arrivalTime.equals(flightToCompare.arrivalTime);
+    public boolean areFlightsEqual(final Flight flightToCompare) {
+        if (this == flightToCompare) {
+            return true;
+        }
+        return from.equals(flightToCompare.from)
+                && to.equals(flightToCompare.to)
+                && carrier.equals(flightToCompare.carrier)
+                && departureTime.equals(flightToCompare.departureTime)
+                && arrivalTime.equals(flightToCompare.arrivalTime);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Flight flight = (Flight) o;
-        return id == flight.id && from.equals(flight.from) && to.equals(flight.to) && carrier.equals(flight.carrier) && departureTime.equals(flight.departureTime) && arrivalTime.equals(flight.arrivalTime);
+        return id == flight.id
+                && from.equals(flight.from)
+                && to.equals(flight.to)
+                && carrier.equals(flight.carrier)
+                && departureTime.equals(flight.departureTime)
+                && arrivalTime.equals(flight.arrivalTime);
     }
 
     @Override

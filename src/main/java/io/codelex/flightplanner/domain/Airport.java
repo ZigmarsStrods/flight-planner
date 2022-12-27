@@ -24,7 +24,7 @@ public class Airport {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(final String country) {
         this.country = WordUtils.capitalizeFully(country);
     }
 
@@ -32,7 +32,7 @@ public class Airport {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(final String city) {
         this.city = WordUtils.capitalizeFully(city);
     }
 
@@ -40,16 +40,22 @@ public class Airport {
         return airport;
     }
 
-    public void setAirport(String airport) {
+    public void setAirport(final String airport) {
         this.airport = airport.trim().toUpperCase();
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Airport airport1 = (Airport) o;
-        return country.equals(airport1.country) && city.equals(airport1.city) && airport.equals(airport1.airport);
+        return country.equals(airport1.country)
+                && city.equals(airport1.city)
+                && airport.equals(airport1.airport);
     }
 
     @Override

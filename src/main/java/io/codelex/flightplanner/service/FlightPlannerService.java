@@ -1,4 +1,4 @@
-package io.codelex.flightplanner.services;
+package io.codelex.flightplanner.service;
 
 import io.codelex.flightplanner.domain.Airport;
 import io.codelex.flightplanner.domain.Flight;
@@ -33,26 +33,28 @@ public abstract class FlightPlannerService {
 
     public abstract void clear();
 
-    protected Flight getFlightCarrierAndTimesFromRequest(AddFlightRequest flightRequest) {
+    protected Flight getFlightCarrierAndTimesFromRequest(final AddFlightRequest flightRequest) {
         String flightCarrier = flightRequest.getCarrier();
         LocalDateTime flightDepartureTime = LocalDateTime.parse(flightRequest.getDepartureTime(), formatter);
         LocalDateTime flightArrivalTime = LocalDateTime.parse(flightRequest.getArrivalTime(), formatter);
         if (flightDepartureTime.compareTo(flightArrivalTime) >= 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Entered times not possible for a correct flight");
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Entered times not possible for a correct flight");
         }
         return new Flight(flightCarrier, flightDepartureTime, flightArrivalTime);
     }
 
-    protected LocalDate getFormattedRequestDepartureDate(SearchFlightsRequest request) {
+    protected LocalDate getFormattedRequestDepartureDate(final SearchFlightsRequest request) {
         return LocalDate.parse(request.getDepartureDate());
     }
 
-    protected String getNormalizedSearch(String search) {
+    protected String getNormalizedSearch(final String search) {
         return search.trim()
                 .toLowerCase();
     }
 
-    protected void setAirports(Flight flightToAdd, Airport from, Airport to) {
+    protected void setAirports(final Flight flightToAdd, final Airport from, final Airport to) {
         flightToAdd.setFrom(from);
         flightToAdd.setTo(to);
     }

@@ -1,10 +1,10 @@
 package io.codelex.flightplanner;
 
-import io.codelex.flightplanner.controllers.AdminController;
+import io.codelex.flightplanner.controller.AdminController;
 import io.codelex.flightplanner.domain.Airport;
 import io.codelex.flightplanner.domain.Flight;
 import io.codelex.flightplanner.dto.AddFlightRequest;
-import io.codelex.flightplanner.controllers.TestController;
+import io.codelex.flightplanner.controller.TestController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @SpringBootTest
-public class FlightPlannerApplicationTest {
+class FlightPlannerApplicationTest {
 
     @Autowired
     AdminController adminController;

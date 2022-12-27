@@ -1,6 +1,6 @@
-package io.codelex.flightplanner.controllers;
+package io.codelex.flightplanner.controller;
 
-import io.codelex.flightplanner.services.FlightPlannerService;
+import io.codelex.flightplanner.service.FlightPlannerService;
 import io.codelex.flightplanner.dto.AddFlightRequest;
 import io.codelex.flightplanner.domain.Flight;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ public class AdminController {
 
     @PutMapping("/flights")
     @ResponseStatus(HttpStatus.CREATED)
-    public synchronized Flight addFlight(@Valid @RequestBody AddFlightRequest flightRequest) {
+    public synchronized Flight addFlight(@Valid @RequestBody final AddFlightRequest flightRequest) {
         if (flightRequest.getTo().equals(flightRequest.getFrom())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
@@ -27,12 +27,12 @@ public class AdminController {
     }
 
     @GetMapping("/flights/{id}")
-    public Flight fetchFlight(@PathVariable int id) {
+    public Flight fetchFlight(@PathVariable final int id) {
         return flightPlannerService.fetchFlight(id);
     }
 
     @DeleteMapping("/flights/{id}")
-    public synchronized void deleteFlight(@PathVariable int id) {
+    public synchronized void deleteFlight(@PathVariable final int id) {
         flightPlannerService.deleteFlight(id);
     }
 }
